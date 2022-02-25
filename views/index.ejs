@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <title>Document</title>
+</head>
+<body>
+  <div class="container">
+    <h2>Url Shortener</h2>
+    <form action="/shortUrls" method="post" class="form-inline my-4">
+      <label for="fullUrl" class="sr-only">URL</label>
+      <input type="url" name="fullUrl" id="fullUrl" class="form-control col mr-2">
+      <button type="submit" class="btn btn-success">Shrink</button>
+    </form>  
+    <table class="table table-responsive table-striped">
+      <thead>
+        <tr>
+          <th>Full URL</th>
+          <th>Short URL</th>
+          <th>Clicks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% shortUrls.forEach(shortUrl => { %>
+          <tr>
+            <td><a href="<%= shortUrl.full %>"><%= shortUrl.full %>
+            </a></td>
+            <td><a href="<%= shortUrl.short %>"><%= shortUrl.short %></a></td>
+            <td><%= shortUrl.click %></td>
+            <td><form method="POST" action="<%= `/short/${shortUrl.short}?_method=DELETE` %>">
+              <button type="submit" class="btn btn-success">Edit</button>
+            </form></td>
+            <td><form method="POST" action="<%= `/short/${shortUrl.short}?_method=DELETE` %>">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form></td>
+          </tr>
+        <% }) %> 
+      
+      </tbody>
+    </table>
+  </div>
+  
+</body>
+</html>
